@@ -4,18 +4,21 @@ import BlogContext from '../context/BlogContext';
 
 const IndexScreen = () => {
     const { data, addBlogPost} = useContext(BlogContext);
+    console.log('-----IndexScreen-------');
     console.log(addBlogPost);
-    return <View>
-        <Text>Index Screen</Text>
-        <Button title="Add Post" onPress={addBlogPost} />
-        <FlatList 
-            data={data}
-            keyExtractor={(blogPost) => blogPost.title}
-            renderItem={({ item }) => {
-                return <Text>{item.title}</Text>
-            }}
-        />
-    </View>
+    return (
+        <View>
+            <Text>Index Screen</Text>
+            <Button title="Add Post" onPress={addBlogPost} />
+            <FlatList 
+                data={data}
+                keyExtractor={(blogPost) => blogPost.title}
+                renderItem={({ item }) => {
+                    return <Text>{item.title}</Text>
+                }}
+            />
+        </View>
+    )
 };
 
 const styles = StyleSheet.create({});
