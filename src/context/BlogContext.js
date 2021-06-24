@@ -2,6 +2,10 @@ import CreateDataContext from './createDataContext';
 
 const blogReducer = (state, action) => {
     switch (action.type) {
+        case 'edit_blogpost':
+            return state.map((blogPost) => {
+                return blogPost.id === action.payload.id ? action.payload : blogPost;
+            });
         case 'add_blogpost':
             return [...state,
                      { id: Math.floor(Math.random() * 99999), 
