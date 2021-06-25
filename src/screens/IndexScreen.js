@@ -6,9 +6,22 @@ import { Feather } from '@expo/vector-icons';
 const IndexScreen = ({ navigation }) => {
     const { state, deleteBlogPost, getBlogPosts } = useContext(Context);
 
+    //we use the useEffect hook to run ONLY the first time this component is loaded
+    //But then when we navigate back here we are not fetching blog posts again.
+    //So we add a listener to the navigation for when it didFocus and then fetch
+    //the blogPosts. If the IndexScreen is removed entirely the return will be hit.
+    //that will then remove the listener so no memory leaks.
     useEffect(() => {
         getBlogPosts();
-    },[]);
+
+        const listener = navigation.addListener('didFocus', () => {
+            getBlogPosts();
+        });
+
+        return () => {
+            listener.remove();
+        };
+    }, []);
 
     return (
         <View>
